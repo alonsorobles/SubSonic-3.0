@@ -31,7 +31,7 @@ namespace SubSonic.Tests.Linq
     {
         public OracleSelectTests()
         {
-            _db = new TestDB(TestConfiguration.OracleTestConnectionString, DbClientTypeName.Oracle);
+            _db = new TestDB(TestConfiguration.OracleTestConnectionString, DbClientTypeName.OracleDataAccess);
             var setup = new Setup(_db.Provider);
             setup.DropTestTables();
             setup.CreateTestTable();
