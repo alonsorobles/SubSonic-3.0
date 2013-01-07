@@ -1973,10 +1973,16 @@ namespace PetaPoco
 
 								if (!Columns.TryGetValue(propertyName, out pc))
 								{
-                                    // Convert field name to property name if mapping was provided
-                                    if (columnNames != null && columnNames.Count > 0)
+								    if (columnNames == null)
+								        continue;
+                                    // Oracle may return an extra RN (row number) property as the last column on the data reader
+                                    // so we will assume that we can skip this if it is the last column to avoid an out of index exception
+								    if (i == columnNames.Count)
+								        continue;
+								    // Convert field name to property name if mapping was provided
+                                    if (columnNames.Count > 0)
                                     {
-                                        if (!Columns.TryGetValue(columnNames[i], out pc))
+                                        if (i < columnNames.Count && !Columns.TryGetValue(columnNames[i], out pc))
                                             continue;
                                     }
                                     else
@@ -2108,6 +2114,14 @@ namespace PetaPoco
 				{
 					converter = delegate(object src) { return new DateTime(((DateTime)src).Ticks, DateTimeKind.Utc); };
 				}
+
+                // Force String to Guid Conversion
+                if (converter == null
+                    && srcType == typeof (String)
+                    && dstType == typeof (Guid))
+                {
+                    converter = delegate(object src) { return new Guid(src.ToString()); };
+                }
 
 				// Forced type conversion including integral types -> enum
 				if (converter == null)
