@@ -116,6 +116,7 @@
     <Compile Include="DbClientTypeName.cs" />
     <Compile Include="LINQ\OracleTests.cs" />
     <Compile Include="Repositories\AutoCollectionTests.cs" />
+    <Compile Include="Repositories\OracleSimpleRepositoryTests.cs" />
     <Compile Include="Repositories\SqlServerAutoCollectionTests.cs" />
     <Compile Include="Repositories\SQLiteAutoCollectionTests.cs" />
     <Compile Include="Repositories\MySQLAutoCollectionTests.cs" />

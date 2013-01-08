@@ -58,7 +58,7 @@ namespace SubSonic.Tests.Repositories
             return CreateTestRecord<Shwerko>(key, withValuesApplied);
         }
 
-        private T CreateTestRecord<T>(Guid key) where T : IShwerko, new()
+        protected T CreateTestRecord<T>(Guid key) where T : IShwerko, new()
         {
             return CreateTestRecord<T>(key, x => { });
         }
@@ -342,13 +342,13 @@ namespace SubSonic.Tests.Repositories
             Assert.Equal("aaa", paged[2].Name);
         }
 
-        private void GivenShwerkosWithNames(params string[] names)
+        protected void GivenShwerkosWithNames(params string[] names)
         {
             var shwerkos = names.Select(x => new Shwerko { Name = x, ElDate = new DateTime(2010, 1, 1) });
 
             _repo.AddMany(shwerkos);
         }
-		  private void GivenShwerkos3WithValues(params decimal[] values)
+		  protected void GivenShwerkos3WithValues(params decimal[] values)
 		  {
 			  var shwerkos = values.Select(x => new Shwerko3 { Name = "Test", ElDate = new DateTime(2010, 1, 1), FunkyName = x });
 
@@ -648,7 +648,7 @@ namespace SubSonic.Tests.Repositories
 			  Assert.Equal(1, count);
 		  }
 
-    	private void GivenShwerkoAndShwerko2WithName(string name)
+    	protected void GivenShwerkoAndShwerko2WithName(string name)
         {
             var shwerko = CreateTestRecord<Shwerko>(Guid.NewGuid(), s => s.Name = name);
             _repo.Add(shwerko);
